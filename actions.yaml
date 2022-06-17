@@ -9,7 +9,7 @@ variables:
 
 name: gh-actions-lxd
 author: antyung88
-description: Setup LXD Container in GitHub Actions
+description: Setup & RUn LXD Container in GitHub Actions
 
 runs:
   using: composite
