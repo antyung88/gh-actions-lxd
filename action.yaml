@@ -15,7 +15,7 @@ runs:
   using: composite
   steps:
     - name: Check platform
-      run: if [[ "${{ runner.os }}" != "ubuntu" ]]; then echo "::error::Unsupported platform - ${{ runner.os }}"; exit 1; fi
+      run: if [[ "${{ runner.os }}" != "Linux" ]]; then echo "::error::Unsupported platform - ${{ runner.os }}"; exit 1; fi
       shell: bash
     - name: initalize LXD
       run: |
