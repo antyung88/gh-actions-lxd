@@ -1,11 +1,17 @@
 name: Create Actions Release
 
 on:
-  push:
+  workflow_dispatch:
+    inputs:
+      job:
+        description: 'Job to run.'
+        required: true
+        default: 'deploy'
 
 jobs:
   build:
     name: Create Release
+    if: ${{ github.event.inputs.job == 'deploy'}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
