@@ -1,0 +1,43 @@
+## Lets define some variables. ##
+
+variables:
+  channel:
+    required: true
+    default: latest/stable
+    
+## NOTHING BELOW SHOULD BE MODIFIED ##
+
+name: gh-actions-lxd
+author: antyung88
+description: Setup LXD Container in GitHub Actions
+
+runs:
+  using: composite
+  steps:
+    - name: Check platform
+      run: if [[ "${{ runner.os }}" != "ubuntu" ]]; then echo "::error::Unsupported platform - ${{ runner.os }}"; exit 1; fi
+      shell: bash
+    - name: initalize LXD
+      run: |
+        sudo snap install lxd --channel=${{ inputs.channel }}
+        sudo chmod o+g '/var/snap/lxd/common/lxd/unix.socket'
+        cat <<EOF | lxd init --preseed
+        storage_pools:
+        - name: default
+          driver: dir
+        networks:
+        - name: lxdbr0
+          type: bridge
+          config:
+            ipv4.address: auto
+            ipv6.address: none
+        profiles:
+        - name: default
+          devices:
+            root:
+              path: /
+              pool: default
+              type: disk
+        EOF
+        lxc profile device add default eth0 nic name=eth0 network=lxdbr0
+      shell: bash
