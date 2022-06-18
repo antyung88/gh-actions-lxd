@@ -1,0 +1,46 @@
+name: Matrix Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - ubuntu-22.04
+          - ubuntu-20.04
+          - ubuntu-18.04
+          - ubuntu-16.04
+        channel:
+          - latest/stable
+          - 4.0/stable
+          - 3.0/stable
+          - latest/edge
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run ${{ github.repository }}@${{ github.sha }}
+              uses: ./
+        with:
+          channel: ${{ matrix.channel }}
+      - name: Launch instance
+        run: lxc launch ubuntu:focal instance
+      - name: Check network connectivity
+        run: |
+          sleep 20  # wait to attach ip address
+          lxc exec instance -- dig google.com +short
+          lxc exec instance -- curl https://github.com
+      - name: Show information of storage and network
+        run: |
+          echo "lxc storage list"
+          lxc storage list
+          echo "lxc storage info default"
+          lxc storage info default
+          echo "lxc network list"
+          lxc network list
+          echo "lxc network info lxdbr0"
+          lxc network info lxdbr0
