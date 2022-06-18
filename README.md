@@ -13,7 +13,6 @@ Setup & Run LXD/LXC in GitHub Actions
 
 Available Channels:
 ```
-channels:
   latest/stable:    5.2-79c3c3b   2022-06-01 (23155) 106MB -
   latest/candidate: 5.2-e1612c0   2022-06-16 (23193) 106MB -
   latest/beta:      ↑
