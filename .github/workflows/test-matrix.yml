@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run ${{ github.repository }}@${{ github.sha }}
-              uses: ./
+        uses: ./
         with:
           channel: ${{ matrix.channel }}
       - name: Launch instance
