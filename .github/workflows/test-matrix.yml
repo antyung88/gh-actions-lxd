@@ -1,12 +1,17 @@
 name: Matrix Test
 
 on:
-  push:
-  pull_request:
+  workflow_dispatch:
+    inputs:
+      job:
+        description: 'Job to run.'
+        required: true
+        default: 'test'
 
 jobs:
   test:
     runs-on: ${{ matrix.os }}
+    if: ${{ github.event.inputs.job == 'test'}}
     strategy:
       fail-fast: false
       matrix:
