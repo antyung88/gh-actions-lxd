@@ -1,4 +1,4 @@
-# gh-actions-lxd
+# gh-actions-lxd [![Create Actions Release](https://github.com/antyung88/gh-actions-lxd/actions/workflows/release.yml/badge.svg)](https://github.com/antyung88/gh-actions-lxd/actions/workflows/release.yml)
 
 Setup & Run LXD/LXC in GitHub Actions
 
